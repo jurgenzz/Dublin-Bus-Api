@@ -25,7 +25,13 @@ http://localhost:8081/bus/:stopNo
 ```
 Example response:
 
+
 ```
+// where 
+// 0 = Bus No
+// 1 = Destinaton
+// 2 = time Due
+
 {
     "timeNow": "13:07",
     "nextBus": [
@@ -77,6 +83,8 @@ Example response:
     ]
 }
 ```
+
+
 
 # To Do 
 
