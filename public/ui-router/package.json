@@ -1,0 +1,41 @@
+{
+  "name": "ui-router",
+  "title": "Angular UI-Router",
+  "description": "Angular UI-Router",
+  "version": "0.0.1",
+  "main": "angular-ui-router.js",
+  "homepage": "http://angular-ui.github.io/ui-router",
+  "repository": {
+    "type": "git",
+    "url": "http://angular-ui.github.io/ui-router"
+  },
+  "keywords": [
+    "angular",
+    "ui-router"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "build": "npm install"
+  },
+  "_id": "ui-router@0.0.1",
+  "_from": "ui-router@*",
+  "dist": {
+    "shasum": "02a8b705aa52fdb4b11bfb291d48173e1b8a162a",
+    "tarball": "http://registry.npmjs.org/ui-router/-/ui-router-0.0.1.tgz"
+  },
+  "_npmVersion": "1.2.18",
+  "_npmUser": {
+    "name": "akalinovski",
+    "email": "a.kalinovski@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "akalinovski",
+      "email": "a.kalinovski@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_shasum": "02a8b705aa52fdb4b11bfb291d48173e1b8a162a",
+  "_resolved": "https://registry.npmjs.org/ui-router/-/ui-router-0.0.1.tgz"
+}
