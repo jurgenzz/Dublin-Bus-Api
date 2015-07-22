@@ -1,21 +1,16 @@
 bus.ejs
 
-<div ng-repeat="bus1 in bus.busNo track by $index">
-    {{bus1}}
-</div>
-<div ng-repeat="busTime in bus.time track by $index">
-    {{busTime}}
-</div>
-
-{{bus.busNo[1]}}
 
 
-<table>
-    <tr  ng-repeat="bus1 in bus.busNo track by $index">
-    <td>{{bus1}}
-    </td>
+
+<table style="border:1px solid black;width:100%"">
+    <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
     </tr>
-    <tr ng-repeat="busTime in bus.time track by $index">
-        <td>{{busTime}}</td>
+    <tr ng-repeat="bus1 in bus.nextBus track by $index">
+        <td>{{bus1[0]}} </td>
+        <td>{{bus1[2]}}</td>
+
     </tr>
-    </table>
+</table>

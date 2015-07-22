@@ -24,6 +24,6 @@ angular.module('busApp', ['ui.router'])
         $http.get(url)
             .success(function(data) {
                 console.log(data);
-                $scope.bus = data.nextBus;
+                $scope.bus = data;
             })
     });
