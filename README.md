@@ -5,6 +5,11 @@ clone and
 ```
 npm install
 ```
+then 
+```
+node app.js
+```
+
 App runs on
 ```
 http://localhost:8081
