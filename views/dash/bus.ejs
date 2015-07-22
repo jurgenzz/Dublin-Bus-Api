@@ -3,14 +3,16 @@ bus.ejs
 
 
 
-<table style="border:1px solid black;width:100%"">
+<table style="border:1px solid black;width:100%; text-align:center;">
     <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
+        <th>Bus Nr</th>
+        <th>Due</th>
+        <th>Destination</th>
     </tr>
     <tr ng-repeat="bus1 in bus.nextBus track by $index">
         <td>{{bus1[0]}} </td>
         <td>{{bus1[2]}}</td>
+        <td>{{bus1[1]}}</td>
 
     </tr>
 </table>
