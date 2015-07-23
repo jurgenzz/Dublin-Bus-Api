@@ -1,18 +1,17 @@
-bus.ejs
-
-
-
-
-<table style="border:1px solid black;width:100%; text-align:center;">
-    <tr>
-        <th>Bus Nr</th>
-        <th>Due</th>
-        <th>Destination</th>
-    </tr>
-    <tr ng-repeat="bus1 in bus.nextBus track by $index">
-        <td>{{bus1[0]}} </td>
-        <td>{{bus1[2]}}</td>
-        <td>{{bus1[1]}}</td>
-
-    </tr>
-</table>
+<div class="table">
+    <div class="head">
+        <ul>
+            <li>Bus no</li>
+            <li>Destination</li>
+            <li>Time Due</li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+    <div ng-repeat="bus1 in bus.nextBus track by $index" ng-show="!$first">
+        <ul class="busTable">
+            <li>{{bus1[0]}} </li>
+            <li>{{bus1[1]}}</li>
+            <li>{{bus1[2]}}</li>
+        </ul>
+    </div>
+</div>
