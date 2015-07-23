@@ -1,0 +1,9 @@
+<div class="table">
+    <div class="loading" ng-show="loading" class="loading">Loading...<img src="http://jimpunk.net/Loading/wp-content/uploads/loading5.gif"></div>
+    <ul ng-repeat="stop in stops.busNo"  class="busTable">
+        <a href="#/routes/{{stop[0]}}/O">
+            <li class="busNr">{{stop[0]}}</li>
+            <li class="routeName">{{stop[1]}}</li>
+        </a>
+    </ul>
+</div>

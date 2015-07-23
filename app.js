@@ -15,6 +15,63 @@ app.get('/', routes.index);
 app.get('/stopNo/:name', routes.stopNo);
 app.get('/dash/:name', routes.partials);
 
+app.get('/route/:route/:direction', function(req,res){
+    var direction = req.params.direction;
+    var route = req.params.route;
+
+    var routes = 'http://www.dublinbus.ie/en/DublinBus-Mobile/RTPI-Stops/?routeNumber='+ route + '&Direction=' + direction;
+    request(routes, function(error, response, html){
+        if (!error) {
+            var $ = cheerio.load(html);
+
+            var stops = {
+                info: []
+            };
+
+            $('.results-box').filter(function() {
+                var data = $(this);
+                var times = data.find('h2').text().split(" ");
+                console.log(times.length);
+                for(var i=1;i<times.length;i++) {
+                    var stopNr = data.find('.result:nth-child('+i+') h2>span').text();
+                    var stopName = data.find('.result:nth-child('+i+') a>span').text();
+                    stops.info.push([stopNr, stopName]);
+                }
+            })
+
+        }
+        res.send(JSON.stringify(stops,null,4));
+    });
+
+
+});
+
+app.get('/stops', function (req, res) {
+    var stops = 'http://www.dublinbus.ie/Your-Journey1/Timetables/';
+    request(stops, function(error, response, html){
+        if (!error) {
+            var $ = cheerio.load(html);
+
+            var buses = {
+                busNo: []
+                };
+
+            $('.AspNet-GridView').filter(function() {
+                var data = $(this);
+                for(var i=1;i<131;i++) {
+                    var stopNr = data.find('tr:nth-child('+i+') td:nth-child(1) a').text();
+                    var stopName = data.find('tr:nth-child('+i+') td:nth-child(2) a').text();
+                    buses.busNo.push([stopNr, stopName]);
+                }
+            })
+
+        }
+        res.send(JSON.stringify(buses,null,4));
+    });
+
+
+});
+
 app.get('/bus/:stopNo', function (req, res) {
     var stopNr = req.params.stopNo;
 
@@ -27,9 +84,8 @@ app.get('/bus/:stopNo', function (req, res) {
     else if(stopNr.length === 2) {
         stopNr = '000' + stopNr;
     }
-    console.log(stopNr);
 
-    url = 'http://rtpi.ie/Text/WebDisplay.aspx?stopRef=' + stopNr;
+    var url = 'http://rtpi.ie/Text/WebDisplay.aspx?stopRef=' + stopNr;
 
     request(url, function (error, response, html) {
         if (!error) {
@@ -61,42 +117,15 @@ app.get('/bus/:stopNo', function (req, res) {
                 }
 
             });
-            //$('#GridViewRTI').filter(function() {
-            //    var data = $(this);
-            //    for(i=1;i<10;i++) {
-            //
-            //        json.nextBus.destination.push(nextBus);
-            //    }
-            //});
-            //$('#GridViewRTI').filter(function() {
-            //    var data = $(this);
-            //    for(i=1;i<10;i++) {
-            //
-            //        json.nextBus.time.push(nextBus);
-            //    }
-            //
-            //})
+
 
         }
         res.send(JSON.stringify(json,null,4));
 
-        // To write to the system we will use the built in 'fs' library.
-        // In this example we will pass 3 parameters to the writeFile function
-        // Parameter 1 :  output.json - this is what the created filename will be called
-        // Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
-        // Parameter 3 :  callback function - a callback function to let us know the status of our function
-
-        //fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
-        //
-        //    console.log('File successfully written! - Check your project directory for the output.json file');
-        //
-        //})
-
-        // Finally, we'll just send out a message to the browser reminding you that this app does not have a UI.
 
 
     });
-})
+});
 
 app.listen('8081');
 console.log('Magic happens on port 8081');

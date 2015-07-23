@@ -4,8 +4,11 @@
     <div class="boxpanel">
 
         <h3>Enter stop No:</h3>
-        <input ng-model="stopNo" class="bus-input">
 
-        <a href="#/stopNr/{{stopNo}}/" class="btn">SEARCH</a>
+        <form ng-submit="submit()">
+        <input type="text" ng-model="text" name="text" ng-model="stopNo" class="bus-input"/>
+        <input type="submit" id="submit" value="Submit" class="btn"/>
+            </form>
     </div>
+    <span class="little"><a href="#/stops">Find by route</a></span>
 </div>

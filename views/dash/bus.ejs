@@ -1,13 +1,20 @@
+<div class="head">
+    <ul>
+        <li>Bus no</li>
+        <li>Destination</li>
+        <li>Time Due</li>
+    </ul>
+</div>
 <div class="table">
-    <div class="head">
-        <ul>
-            <li>Bus no</li>
-            <li>Destination</li>
-            <li>Time Due</li>
-        </ul>
-    </div>
+    <div class="loading" ng-show="loading" class="loading">Loading...<img src="http://jimpunk.net/Loading/wp-content/uploads/loading5.gif"></div>
+
     <div class="clear"></div>
+    <div ng-show="bus.nextBus.length === 0" class="notification">
+        Hey, looks like either there are no buses, or you got the bus stop nr. wrong! Check again!
+        <a href="#/home" class="btn btn-a">Go back</a>
+    </div>
     <div ng-repeat="bus1 in bus.nextBus track by $index" ng-show="!$first">
+
         <ul class="busTable">
             <li>{{bus1[0]}} </li>
             <li>{{bus1[1]}}</li>
@@ -15,3 +22,4 @@
         </ul>
     </div>
 </div>
+<a href="#/home" class="btn btn-a">Go back</a>
