@@ -11,4 +11,12 @@
             </form>
     </div>
     <span class="little"><a href="#/stops">Find by route</a></span>
+    <span class="little" style="cursor: pointer" ng-click="changeHistory()"><a>Show history</a></span>
+    <div ng-show="showHistory" class="fade">
+        <span ng-repeat="bus in buses.bus" class="busList"><a href="#/stopNr/{{bus[0]}}/">{{bus[0]}}</a></span>
+        <span class="little" ng-click="clearHistory()" style="cursor: pointer"><a>Clear history</a></span>
+    </div>
+
+
 </div>
+

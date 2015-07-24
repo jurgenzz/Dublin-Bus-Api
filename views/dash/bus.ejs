@@ -1,3 +1,13 @@
+
+    <input type="submit" ng-click="changeBusBtn()" value="Change stop Nr" class="btn"/>
+
+<div ng-show="changeBus" class="SlideUp">
+<form ng-submit="submit()">
+    <input type="text" ng-model="text" name="text"  class="bus-input"  onClick="this.select();"/>
+    <input type="submit" id="submit" value="Submit" class="btn"/>
+</form>
+</div>
+
 <div class="head">
     <ul>
         <li>Bus no</li>
@@ -11,7 +21,7 @@
     <div class="clear"></div>
     <div ng-show="bus.nextBus.length === 0" class="notification">
         Hey, looks like either there are no buses, or you got the bus stop nr. wrong! Check again!
-        <a href="#/home" class="btn btn-a">Go back</a>
+        <input type="submit" ng-click="changeBusBtn()" value="Change stop Nr" class="btn"/>
     </div>
     <div ng-repeat="bus1 in bus.nextBus track by $index" ng-show="!$first">
 

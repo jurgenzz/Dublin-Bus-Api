@@ -1,6 +1,8 @@
 <div class="table">
+    <input placeholder='search..' ng-model="searchText" class="bus-input">
+    <br>
     <div class="loading" ng-show="loading" class="loading">Loading...<img src="http://jimpunk.net/Loading/wp-content/uploads/loading5.gif"></div>
-    <ul ng-repeat="stop in stops.busNo"  class="busTable">
+    <ul ng-repeat="stop in stops.busNo | filter:searchText"  class="busTable">
         <a href="#/routes/{{stop[0]}}/O">
             <li class="busNr">{{stop[0]}}</li>
             <li class="routeName">{{stop[1]}}</li>

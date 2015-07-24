@@ -15,8 +15,10 @@ app.get('/', routes.index);
 app.get('/stopNo/:name', routes.stopNo);
 app.get('/dash/:name', routes.partials);
 
+
+//getting all the stop numbers and routes on a bus route
 app.get('/route/:route/:direction', function(req,res){
-    var direction = req.params.direction;
+    var direction = req.params.direction; //I for inbound, O for outbound
     var route = req.params.route;
 
     var routes = 'http://www.dublinbus.ie/en/DublinBus-Mobile/RTPI-Stops/?routeNumber='+ route + '&Direction=' + direction;
@@ -30,11 +32,10 @@ app.get('/route/:route/:direction', function(req,res){
 
             $('.results-box').filter(function() {
                 var data = $(this);
-                var times = data.find('h2').text().split(" ");
-                console.log(times.length);
+                var times = data.find('h2').text().split(" "); //counts results
                 for(var i=1;i<times.length;i++) {
-                    var stopNr = data.find('.result:nth-child('+i+') h2>span').text();
-                    var stopName = data.find('.result:nth-child('+i+') a>span').text();
+                    var stopNr = data.find('.result:nth-child('+i+') h2>span').text(); //stop nr
+                    var stopName = data.find('.result:nth-child('+i+') a>span').text(); //stop name
                     stops.info.push([stopNr, stopName]);
                 }
             })
@@ -45,6 +46,9 @@ app.get('/route/:route/:direction', function(req,res){
 
 
 });
+
+
+//getting all the bus routes
 
 app.get('/stops', function (req, res) {
     var stops = 'http://www.dublinbus.ie/Your-Journey1/Timetables/';
@@ -58,7 +62,8 @@ app.get('/stops', function (req, res) {
 
             $('.AspNet-GridView').filter(function() {
                 var data = $(this);
-                for(var i=1;i<131;i++) {
+                var times = data.find('tr').length;
+                for(var i=1;i<times;i++) {
                     var stopNr = data.find('tr:nth-child('+i+') td:nth-child(1) a').text();
                     var stopName = data.find('tr:nth-child('+i+') td:nth-child(2) a').text();
                     buses.busNo.push([stopNr, stopName]);
@@ -66,6 +71,18 @@ app.get('/stops', function (req, res) {
             })
 
         }
+        /*
+        scraping this takes a while, so i suggest to run it only once in a while
+        (routes doesnt really change, do they?)
+        Like, bus numbers will be the same, wont they?
+        For my example i am serving the one in /public/files/buses.json
+         */
+        fs.writeFile('output.json', JSON.stringify(buses, null, 4), function(err){
+
+            console.log('File successfully written! - Check your project directory for the output.json file');
+
+        });
+
         res.send(JSON.stringify(buses,null,4));
     });
 
@@ -74,13 +91,18 @@ app.get('/stops', function (req, res) {
 
 app.get('/bus/:stopNo', function (req, res) {
     var stopNr = req.params.stopNo;
+    /*
+    here goes a fallback for stopNr, as it has to be 5 numbers
+     */
 
-    if(stopNr.length === 3) {
-        stopNr = '00' + stopNr;
-    }
-    else if(stopNr.length === 4) {
+    if(stopNr.length === 4) {
         stopNr = '0' + stopNr;
     }
+
+    else if(stopNr.length === 3) {
+        stopNr = '00' + stopNr;
+    }
+
     else if(stopNr.length === 2) {
         stopNr = '000' + stopNr;
     }
@@ -91,7 +113,6 @@ app.get('/bus/:stopNo', function (req, res) {
         if (!error) {
             var $ = cheerio.load(html);
 
-            var title, release, rating;
             var json = {
                 timeNow: "",
                 nextBus: []
@@ -101,7 +122,7 @@ app.get('/bus/:stopNo', function (req, res) {
             //getting time now
             $('.titleLine').filter(function () {
                 var data = $(this);
-                timeNow = data.children().last().text();
+                timeNow = data.children().last().text(); //gets time from RTPI
                 json.timeNow = timeNow;
 
             });
@@ -109,10 +130,12 @@ app.get('/bus/:stopNo', function (req, res) {
             //getting last 10 buses
             $('#GridViewRTI').filter(function() {
                 var data = $(this);
-                for(i=1;i<10;i++) {
-                    nextNo = data.find('tr:nth-child('+i+') td:nth-child(1)').text();
-                    nextDest = data.find('tr:nth-child('+i+') td:nth-child(2)').text();
-                    nextTime = data.find('tr:nth-child('+i+') td:nth-child(3)').text();
+                var times = data.find('tr').length; //to see, how many buses ar show at the moment
+                console.log(times);
+                for(i=1;i<times;i++) {
+                    nextNo = data.find('tr:nth-child('+i+') td:nth-child(1)').text(); //next bus no
+                    nextDest = data.find('tr:nth-child('+i+') td:nth-child(2)').text(); //next bus destination
+                    nextTime = data.find('tr:nth-child('+i+') td:nth-child(3)').text(); //next bus due
                     json.nextBus.push([nextNo,nextDest,nextTime]);
                 }
 
@@ -121,7 +144,6 @@ app.get('/bus/:stopNo', function (req, res) {
 
         }
         res.send(JSON.stringify(json,null,4));
-
 
 
     });

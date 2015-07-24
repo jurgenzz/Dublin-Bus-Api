@@ -4,7 +4,7 @@ exports.stopNo = function (req, res) {
 };
 
 exports.index = function(req, res){
-    res.render('index');
+    res.render('dash/getstarted');
 };
 
 exports.partials = function (req, res) {

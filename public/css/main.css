@@ -1,6 +1,7 @@
 body {
     background: lightgrey;
-    font-family:sans-serif;
+    font-family: sans-serif;
+    overflow-y: scroll;
 }
 
 .clear {
@@ -162,4 +163,41 @@ h3 {
     text-decoration:none;
     color:#717171;
 
+}
+.ng-hide-add, .ng-hide-remove {
+    /* ensure visibility during the transition */
+    display: block !important; /* yes, important */
+}
+
+.SlideUp {
+    transition: .5s linear all;
+    height:80px;
+    /*overflow: hidden;*/
+}
+.SlideUp.ng-hide {
+    height:0;
+}
+
+.fade {
+    transition: 0.5s linear all;
+    opacity: 1;
+}
+.fade.ng-hide {
+    opacity: 0;
+}
+
+.busList {
+    width:100%;
+    display:block;
+    text-align:center;
+    color:#252e32;
+    font-size: 1.2em;
+    padding:3px;
+    margin:3px;
+
+}
+
+.busList a {
+    text-decoration: none;
+    color:#252e32;
 }
