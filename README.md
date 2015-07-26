@@ -17,6 +17,8 @@ http://localhost:8081
 There is a quick example 'dash' as well (work in progress) that runs on angularjs and displays all the stuff
 
 
+btw, need to fix controllers, if you are not running it locally, as the calls ar made to localhost.
+
 ###API
 
 #####Get all bus routes
