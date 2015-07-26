@@ -1,0 +1,38 @@
+<a href="#/red" class="btn btn-a">Red</a>
+<a href="#/green" class="btn btn-a">Green</a>
+<div class="luas">
+    <div class="head">
+        <ul>
+            <li>Destination</li>
+            <li class="right">Time Due</li>
+        </ul>
+    </div>
+    <div class="table">
+        <div class="loading" ng-show="loading" class="loading">Loading...<img src="http://jimpunk.net/Loading/wp-content/uploads/loading5.gif"></div>
+
+        <div class="clear"></div>
+        <div ng-show="times.length === 0" class="notification">
+            Hey, looks like either there are no buses, or you got the bus stop nr. wrong! Check again!
+            <input type="submit" ng-click="changeBusBtn()" value="Change stop Nr" class="btn"/>
+        </div>
+        <h3>Inbound</h3>
+        <ul class="busTable">
+            <li>{{times.inbound[0].first.destination}} </li>
+            <li>{{times.inbound[0].first.duemins}}</li>
+        </ul>
+        <ul class="busTable">
+            <li>{{times.inbound[0].second.destination}} </li>
+            <li>{{times.inbound[0].second.duemins}}</li>
+        </ul>
+        <h3>Outbound</h3>
+        <ul class="busTable">
+            <li>{{times.outbound[0].first.destination}} </li>
+            <li>{{times.outbound[0].first.duemins}}</li>
+        </ul>
+        <ul class="busTable">
+            <li>{{times.outbound[0].second.destination}} </li>
+            <li>{{times.outbound[0].second.duemins}}</li>
+        </ul>
+
+    </div>
+</div>

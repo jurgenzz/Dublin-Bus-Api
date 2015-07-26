@@ -4,6 +4,8 @@ var request = require('request');
 var cheerio = require('cheerio');
 var app = express();
 var path = require('path');
+var util = require('util');
+
 
 var routes = require('./js/routes');
 
@@ -12,8 +14,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', routes.index);
-app.get('/stopNo/:name', routes.stopNo);
-app.get('/dash/:name', routes.partials);
+app.get('/busRTPI/:name', routes.bus);
+app.get('/luasRTPI/:name', routes.luas);
 
 
 //getting all the stop numbers and routes on a bus route
@@ -58,7 +60,7 @@ app.get('/stops', function (req, res) {
 
             var buses = {
                 busNo: []
-                };
+            };
 
             $('.AspNet-GridView').filter(function() {
                 var data = $(this);
@@ -72,10 +74,10 @@ app.get('/stops', function (req, res) {
 
         }
         /*
-        scraping this takes a while, so i suggest to run it only once in a while
-        (routes doesnt really change, do they?)
-        Like, bus numbers will be the same, wont they?
-        For my example i am serving the one in /public/files/buses.json
+         scraping this takes a while, so i suggest to run it only once in a while
+         (routes doesnt really change, do they?)
+         Like, bus numbers will be the same, wont they?
+         For my example i am serving the one in /public/files/buses.json
          */
         fs.writeFile('output.json', JSON.stringify(buses, null, 4), function(err){
 
@@ -92,7 +94,7 @@ app.get('/stops', function (req, res) {
 app.get('/bus/:stopNo', function (req, res) {
     var stopNr = req.params.stopNo;
     /*
-    here goes a fallback for stopNr, as it has to be 5 numbers
+     here goes a fallback for stopNr, as it has to be 5 numbers
      */
 
     if(stopNr.length === 4) {
@@ -148,6 +150,62 @@ app.get('/bus/:stopNo', function (req, res) {
 
     });
 });
+
+
+app.get('/luas/:stopName/:direction', function (req, res) {
+    var stop = req.params.stopName;
+    var IO = req.params.stopName;
+    var stops = 'http://luasforecasts.rpa.ie/xml/get.ashx?encrypt=false&stop='+ stop + '&action=forecast';
+    request(stops, function(error, response, xml){
+        if (!error) {
+            var $ = cheerio.load(xml);
+
+
+            var luas = {
+                inbound: [],
+                outbound: []
+            };
+
+            $('stopInfo').filter(function() {
+                var data = $(this);
+
+                var first = data.children().next().children().attr();
+                var second = data.children().next().children().children().attr();
+
+                luas.inbound.push({first: first, second: second});
+
+            });
+
+
+
+            $('stopInfo').filter(function() {
+                var data = $(this);
+
+                var first = data.children().next().next().children().attr();
+                var second = data.children().next().next().children().children().attr();
+
+                luas.outbound.push({first: first, second: second});
+
+            });
+            res.send(luas);
+        }
+        /*
+         scraping this takes a while, so i suggest to run it only once in a while
+         (routes doesnt really change, do they?)
+         Like, bus numbers will be the same, wont they?
+         For my example i am serving the one in /public/files/buses.json
+         */
+        //fs.writeFile('output.json', JSON.stringify(buses, null, 4), function(err){
+        //
+        //    console.log('File successfully written! - Check your project directory for the output.json file');
+        //
+        //});
+
+    });
+
+
+});
+
 
 app.listen('8081');
 console.log('Magic happens on port 8081');

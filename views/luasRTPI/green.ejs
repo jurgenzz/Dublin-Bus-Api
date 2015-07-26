@@ -1,0 +1,15 @@
+<div class="table">
+    <input placeholder='search..' ng-model="searchText" class="bus-input">
+    <br>
+    <ul ng-repeat="green in green.stations | filter:searchText"  class="luasStops">
+        <a href="#/rtpi/{{green.shortName}}/O" class="stopLink">
+            <li class="stopName">
+                <div class="left">{{green.displayName}}<br>
+                    <span class="little stopName">{{green.displayIrishName}}</span>
+                </div>
+                <span class="seeRTPI">See RTPI</span>
+            </li>
+
+        </a>
+    </ul>
+</div>

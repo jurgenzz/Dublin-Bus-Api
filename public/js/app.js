@@ -96,10 +96,10 @@ angular.module('busApp', ['ui.router', 'ngAnimate'])
         //first load
         $http.get(url)
             .success(function (data) {
-                //console.log(data);
                 $scope.busesRTPI = data;
                 $scope.loading = false;
                 $scope.timeOut = 30;
+
             });
 
 

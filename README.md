@@ -96,6 +96,10 @@ where `:stopNo` is the number.
 
 Thats about it at the moment.
 
+##### Working on:
+
+At the moment i am adding luas RTPI here as well. App at the moment might run into some errors.
+
 ##### By the way:
 
 This project of mine is in no way affiliated with Dublin Bus or the providers of the RTPI service.

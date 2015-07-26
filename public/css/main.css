@@ -23,7 +23,7 @@ body {
 .boxpanel {
     background: white;
     width: 300px;
-    height:150px;
+    height:180px;
     margin: 0 auto;
     border-radius: 3px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
@@ -201,3 +201,43 @@ h3 {
     text-decoration: none;
     color:#252e32;
 }
+
+ul.luasStops {
+    width:100%;
+    display:block;
+    height:60px;
+    background:#F5F5F5;
+    padding:0;
+    margin:0 0 15px 0;
+}
+
+.stopName {
+    display:block;
+    float:left;
+    list-style-type: none;
+    width:100%;
+    font-size:0.9em;
+    padding:10px;
+}
+.left>.little {
+    text-align:left;
+    padding:0;
+}
+a.stopLink {
+    color:#717171;
+
+}
+
+.left {
+    float:left;
+}
+.seeRTPI {
+    float:right;
+    margin-right:20px;
+    margin-top:10px;
+}
+
+.luas .head li, .luas .table li {
+    width:50%;
+}
+
