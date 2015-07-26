@@ -131,7 +131,7 @@ app.get('/bus/:stopNo', function (req, res) {
             $('#GridViewRTI').filter(function() {
                 var data = $(this);
                 var times = data.find('tr').length; //to see, how many buses ar show at the moment
-                console.log(times);
+                //console.log(times);
                 for(i=2;i<times;i++) {
                     nextNo = data.find('tr:nth-child('+i+') td:nth-child(1)').text(); //next bus no
                     nextDest = data.find('tr:nth-child('+i+') td:nth-child(2)').text(); //next bus destination

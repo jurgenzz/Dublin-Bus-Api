@@ -1,11 +1,11 @@
 
-    <input type="submit" ng-click="changeBusBtn()" value="Change stop Nr" class="btn"/>
+<input type="submit" ng-click="changeBusBtn()" value="Change stop Nr" class="btn"/>
 
 <div ng-show="changeBus" class="SlideUp">
-<form ng-submit="submit()">
-    <input type="text" ng-model="text" name="text"  class="bus-input"  onClick="this.select();"/>
-    <input type="submit" id="submit" value="Submit" class="btn"/>
-</form>
+    <form ng-submit="submit()">
+        <input type="text" ng-model="text" name="text"  class="bus-input"  onClick="this.select();"/>
+        <input type="submit" id="submit" value="Submit" class="btn"/>
+    </form>
 </div>
 
 <div class="head">
@@ -31,5 +31,7 @@
             <li>{{bus.timeDue}}</li>
         </ul>
     </div>
+
 </div>
+<span class="little">RTPI Time = {{busesRTPI.timeNow}}, auto reload in {{timeOut}}</span>
 <a href="#/home" class="btn btn-a">Go back</a>

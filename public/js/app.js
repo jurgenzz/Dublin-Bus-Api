@@ -62,13 +62,24 @@ angular.module('busApp', ['ui.router', 'ngAnimate'])
         $scope.buses = JSON.parse(window.localStorage['name'] || '{}');
         $scope.submit = function () {
             $window.location.href = '#/stopNr/'+$scope.text+'/';
-            $scope.buses.bus.push([$scope.text]);
-            window.localStorage['name'] = JSON.stringify($scope.buses);
+            var count = $scope.buses.bus.length;
 
+            //check if stop nr is already in history
+            var added = false;
 
+            for(var i=0; i<count; i++) {
+                if ($scope.buses.bus[i].busNo === $scope.text) {
+                    added = true;
+                }
+            }
+
+            // so if it is not, we add it to local storage
+            if(added === false) {
+                $scope.buses.bus.push({busNo: $scope.text});
+                window.localStorage['name'] = JSON.stringify($scope.buses);
+            }
         };
 
-        console.log($scope.buses);
         $scope.clearHistory = function () {
             $scope.buses = {
                 bus: []
@@ -88,6 +99,7 @@ angular.module('busApp', ['ui.router', 'ngAnimate'])
                 //console.log(data);
                 $scope.busesRTPI = data;
                 $scope.loading = false;
+                $scope.timeOut = 30;
             });
 
 
@@ -96,15 +108,23 @@ angular.module('busApp', ['ui.router', 'ngAnimate'])
             $timeout(function() {
                 $http.get(url)
                     .success(function (data) {
-                        console.log(data);
+                        //  console.log(data);
                         $scope.busesRTPI = data;
                         $scope.loading = false;
                         console.log('reload');
+                        $scope.timeOut = 30;
 
                     });
                 $scope.scheduleReload();
-            }, 12000);
+            }, 30000);
         };
+        $scope.timeOutFunction = function() {
+            $timeout(function() {
+                $scope.timeOut = $scope.timeOut -1;
+                $scope.timeOutFunction();
+            }, 1000)
+        };
+        $scope.timeOutFunction();
         $scope.scheduleReload();
         $scope.changeBus = false;
         $scope.changeBusBtn = function() {
