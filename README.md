@@ -99,6 +99,45 @@ Thats about it at the moment.
 ##### Working on:
 
 At the moment i am adding luas RTPI here as well. App at the moment might run into some errors.
+At the moment available calls:
+
+```
+/luas/:stopName/:direction
+```
+
+Where `:stopName` is stops shortname. You can find them in `/files/red.json` and `/files/green.json`. 
+`:direction` is not working at the moment, but is required to do the call, you can put there whatever you want.
+
+####Example response `/luas/BAL/I`
+
+```
+{
+  "inbound": [
+    {
+      "first": {
+        "duemins": "6",
+        "destination": "St. Stephen's Green"
+      },
+      "second": {
+        "duemins": "18",
+        "destination": "St. Stephen's Green"
+      }
+    }
+  ],
+  "outbound": [
+    {
+      "first": {
+        "duemins": "1",
+        "destination": "Brides Glen"
+      },
+      "second": {
+        "duemins": "10",
+        "destination": "Brides Glen"
+      }
+    }
+  ]
+}
+```
 
 ##### By the way:
 
