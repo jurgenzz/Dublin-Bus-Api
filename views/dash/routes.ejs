@@ -1,10 +1,10 @@
 <a href="#/home" class="btn btn-a">Go back</a>
 
 <div ng-hide="direction === 'I'">
-<a href="#/routes/{{busRoute}}/I" class="btn btn-a">change direction</a>
+<a href="#/routes/{{busRoute}}/I" class="btn btn-a">Outbound (change to Inbound)</a>
     </div>
 <div ng-hide="direction === 'O'">
-    <a href="#/routes/{{busRoute}}/O" class="btn btn-a">change direction</a>
+    <a href="#/routes/{{busRoute}}/O" class="btn btn-a">Inbound (change to Outbound)</a>
 </div>
 
 <div class="table">
@@ -12,9 +12,9 @@
     <br>
     <div class="loading" ng-show="loading" class="loading">Loading...<img src="http://jimpunk.net/Loading/wp-content/uploads/loading5.gif"></div>
     <ul ng-repeat="stop in stops.info | filter:search"  class="busTable">
-        <a href="#/stopNr/{{stop[0]}}/">
-            <li class="busNr">{{stop[0]}}</li>
-            <li class="routeName">{{stop[1]}}</li>
+        <a href="#/stopNr/{{stop.stopNr}}/">
+            <li class="busNr">{{stop.stopNr}}</li>
+            <li class="routeName">{{stop.stopName}}</li>
         </a>
     </ul>
 </div>

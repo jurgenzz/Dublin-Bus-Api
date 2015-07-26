@@ -1,11 +1,11 @@
 # Dublin-Bus-Api
 A quick webapp that scrapes rtpi.ie and gives you bus realtime API
-# Get Started
-clone and 
+#####To get Started
+clone and:
 ```
 npm install
 ```
-then 
+then:
 ```
 node app.js
 ```
@@ -14,83 +14,90 @@ App runs on
 ```
 http://localhost:8081
 ```
-There is a quick example 'dash' (work in progress) that runs on angularjs and displays all the stuff
+There is a quick example 'dash' as well (work in progress) that runs on angularjs and displays all the stuff
 
-Access:
+
+###API
+
+#####Get all bus routes
 ```
-http://localhost:8081/dash/index#/home
+/stops
 ```
+Here, to scrape this one, takes a while, so i am not using it in production. When making this call, the response is written to `output.json` and you can serve a static file with bus routes.
+In the example 'dash', i am serving up a file in `/public/files/buses.json`.
 
-
-#API
-
-Call:
-```
-http://localhost:8081/bus/:stopNo
-```
-Example response:
-
+#####Example response `/stops`
 
 ```
-// where 
-// 0 = Bus No
-// 1 = Destinaton
-// 2 = time Due
+{
+    "busNo": [
+        {
+            "route": "1",
+            "destination": "Santry (Shanard Rd.) Towards Sandymount (St. John's Church)"
+        },
+        {
+            "route": "4 ",
+            "destination": "From Harristown Towards Monkstown Avenue "
+        }
+    ]
+}
+```
+#####Get all stops from a route
+```
+/route/:route/:direction
+```
+
+where `:route` is a bus number and `:direction` is either `I` for 'inbound' or `O` for outbound
+#####Example response `/route/1/O`
+```
+{
+    "info": [
+        {
+            "stopNr": "226",
+            "stopName": "Shanard Road, Shanard Avenue"
+        },
+        {
+            "stopNr": "228",
+            "stopName": "Shanliss Rd, Oldtown Avenue"
+        }
+    ]
+}
+````
+#####Get real time bus info for a specific stop
+```
+/bus/:stopNo
+
+```
+where `:stopNo` is the number.
+
+
+
+#####Example response `bus/748`
+
+
+```
 
 {
-    "timeNow": "13:07",
-    "nextBus": [
-        [
-            "",
-            "",
-            ""
-        ],
-        [
-            "1",
-            "Shanard Road",
-            "7 Mins"
-        ],
-        [
-            "16",
-            "Dublin Airport",
-            "8 Mins"
-        ],
-        [
-            "11",
-            "Wadelai Pk",
-            "12 Mins"
-        ],
-        [
-            "16",
-            "Dublin Airport",
-            "18 Mins"
-        ],
-        [
-            "1",
-            "Shanard Road",
-            "22 Mins"
-        ],
-        [
-            "16",
-            "Dublin Airport",
-            "26 Mins"
-        ],
-        [
-            "44",
-            "DCU",
-            "39 Mins"
-        ],
-        [
-            "11",
-            "Wadelai Pk",
-            "40 Mins"
-        ]
+    "timeNow": "11:03",
+    "bus": [
+        {
+            "busNo": "25B",
+            "destination": "Merrion Sq",
+            "timeDue": "4 Mins"
+        },
+        {
+            "busNo": "39",
+            "destination": "Burlington Road",
+            "timeDue": "5 Mins"
+        }
     ]
 }
 ```
 
+Thats about it at the moment.
 
+##### By the way:
 
-# To Do 
+This project of mine is in no way affiliated with Dublin Bus or the providers of the RTPI service.
 
-need to make this response pretty
+I can't guarantee anything. May break at any time.

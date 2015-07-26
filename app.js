@@ -36,7 +36,7 @@ app.get('/route/:route/:direction', function(req,res){
                 for(var i=1;i<times.length;i++) {
                     var stopNr = data.find('.result:nth-child('+i+') h2>span').text(); //stop nr
                     var stopName = data.find('.result:nth-child('+i+') a>span').text(); //stop name
-                    stops.info.push([stopNr, stopName]);
+                    stops.info.push({stopNr: stopNr, stopName: stopName});
                 }
             })
 
@@ -66,7 +66,7 @@ app.get('/stops', function (req, res) {
                 for(var i=1;i<times;i++) {
                     var stopNr = data.find('tr:nth-child('+i+') td:nth-child(1) a').text();
                     var stopName = data.find('tr:nth-child('+i+') td:nth-child(2) a').text();
-                    buses.busNo.push([stopNr, stopName]);
+                    buses.busNo.push({route: stopNr, destination:stopName});
                 }
             })
 
@@ -113,17 +113,17 @@ app.get('/bus/:stopNo', function (req, res) {
         if (!error) {
             var $ = cheerio.load(html);
 
-            var json = {
+            var rtpi = {
                 timeNow: "",
-                nextBus: []
+                bus: []
 
             };
 
-            //getting time now
+            //getting time now from RTPI
             $('.titleLine').filter(function () {
                 var data = $(this);
                 timeNow = data.children().last().text(); //gets time from RTPI
-                json.timeNow = timeNow;
+                rtpi.timeNow = timeNow;
 
             });
 
@@ -132,18 +132,18 @@ app.get('/bus/:stopNo', function (req, res) {
                 var data = $(this);
                 var times = data.find('tr').length; //to see, how many buses ar show at the moment
                 console.log(times);
-                for(i=1;i<times;i++) {
+                for(i=2;i<times;i++) {
                     nextNo = data.find('tr:nth-child('+i+') td:nth-child(1)').text(); //next bus no
                     nextDest = data.find('tr:nth-child('+i+') td:nth-child(2)').text(); //next bus destination
                     nextTime = data.find('tr:nth-child('+i+') td:nth-child(3)').text(); //next bus due
-                    json.nextBus.push([nextNo,nextDest,nextTime]);
+                    rtpi.bus.push({busNo: nextNo, destination: nextDest, timeDue: nextTime});
                 }
 
             });
 
 
         }
-        res.send(JSON.stringify(json,null,4));
+        res.send(JSON.stringify(rtpi,null,4));
 
 
     });

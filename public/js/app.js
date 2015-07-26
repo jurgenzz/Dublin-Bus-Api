@@ -28,7 +28,7 @@ angular.module('busApp', ['ui.router', 'ngAnimate'])
         $scope.busRoute = $stateParams.route;
         $scope.direction = $stateParams.routeDir;
 
-        var url = 'http://192.168.0.13:8081/route/' + $scope.busRoute + '/' + $scope.direction;
+        var url = 'http://localhost:8081/route/' + $scope.busRoute + '/' + $scope.direction;
 
         $http.get(url)
             .success(function(data) {
@@ -58,16 +58,17 @@ angular.module('busApp', ['ui.router', 'ngAnimate'])
         $scope.buses = {
             bus: []
 
-        }
+        };
         $scope.buses = JSON.parse(window.localStorage['name'] || '{}');
         $scope.submit = function () {
             $window.location.href = '#/stopNr/'+$scope.text+'/';
             $scope.buses.bus.push([$scope.text]);
             window.localStorage['name'] = JSON.stringify($scope.buses);
 
+
         };
 
-        //console.log($scope.buses);
+        console.log($scope.buses);
         $scope.clearHistory = function () {
             $scope.buses = {
                 bus: []
@@ -85,7 +86,7 @@ angular.module('busApp', ['ui.router', 'ngAnimate'])
         $http.get(url)
             .success(function (data) {
                 //console.log(data);
-                $scope.bus = data;
+                $scope.busesRTPI = data;
                 $scope.loading = false;
             });
 
@@ -95,8 +96,8 @@ angular.module('busApp', ['ui.router', 'ngAnimate'])
             $timeout(function() {
                 $http.get(url)
                     .success(function (data) {
-                        //console.log(data);
-                        $scope.bus = data;
+                        console.log(data);
+                        $scope.busesRTPI = data;
                         $scope.loading = false;
                         console.log('reload');
 

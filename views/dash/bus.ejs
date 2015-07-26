@@ -23,12 +23,12 @@
         Hey, looks like either there are no buses, or you got the bus stop nr. wrong! Check again!
         <input type="submit" ng-click="changeBusBtn()" value="Change stop Nr" class="btn"/>
     </div>
-    <div ng-repeat="bus1 in bus.nextBus track by $index" ng-show="!$first">
+    <div ng-repeat="bus in busesRTPI.bus">
 
         <ul class="busTable">
-            <li>{{bus1[0]}} </li>
-            <li>{{bus1[1]}}</li>
-            <li>{{bus1[2]}}</li>
+            <li>{{bus.busNo}} </li>
+            <li>{{bus.destination}}</li>
+            <li>{{bus.timeDue}}</li>
         </ul>
     </div>
 </div>
