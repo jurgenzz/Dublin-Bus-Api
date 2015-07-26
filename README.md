@@ -14,6 +14,12 @@ App runs on
 ```
 http://localhost:8081
 ```
+
+#### Example app
+
+http://104.131.89.50:8081/
+
+
 There is a quick example 'dash' as well (work in progress) that runs on angularjs and displays all the stuff
 
 
