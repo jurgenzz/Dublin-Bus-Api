@@ -4,14 +4,20 @@ var request = require('request');
 var cheerio = require('cheerio');
 var app = express();
 var path = require('path');
-var util = require('util');
-
+var favicon = require('serve-favicon');
 
 var routes = require('./js/routes');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get('/', routes.index);
 app.get('/busRTPI/:name', routes.bus);

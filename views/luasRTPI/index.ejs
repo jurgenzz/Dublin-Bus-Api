@@ -1,17 +1,24 @@
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/ui-router/angular-ui-router.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+
     <script src="/js/scripts.js"></script>
     <script src="/js/luasApp.js"></script>
     <link href="/css/main.css" type="text/css" rel="stylesheet">
 </head>
 <body ng-app="luasApp">
 
+<div id="top_btns">
+    <a href="#/red" class="btn btn-a">Red</a>
+    <a href="#/green" class="btn btn-a">Green</a>
+</div>
+
 <div ui-view></div>
 
-
+<span class="little"><a href="/">home</a></span>
 
 </body>
 </html>
