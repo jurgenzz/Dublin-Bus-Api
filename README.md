@@ -14,12 +14,23 @@ App runs on
 ```
 http://localhost:8081
 ```
+
+#### Example app
+
+http://104.131.89.50:8081/
+
+
 There is a quick example 'dash' as well (work in progress) that runs on angularjs and displays all the stuff
 
+
+btw, need to fix controllers, if you are not running it locally, as the calls ar made to localhost.
 
 ###API
 
 #####Get all bus routes
+
+http://104.131.89.50:8081/stops
+
 ```
 /stops
 ```
@@ -49,6 +60,9 @@ In the example 'dash', i am serving up a file in `/public/files/buses.json`.
 
 where `:route` is a bus number and `:direction` is either `I` for 'inbound' or `O` for outbound
 #####Example response `/route/1/O`
+
+http://104.131.89.50:8081/route/1/O
+
 ```
 {
     "info": [
@@ -66,7 +80,6 @@ where `:route` is a bus number and `:direction` is either `I` for 'inbound' or `
 #####Get real time bus info for a specific stop
 ```
 /bus/:stopNo
-
 ```
 where `:stopNo` is the number.
 
@@ -74,6 +87,7 @@ where `:stopNo` is the number.
 
 #####Example response `bus/748`
 
+http://104.131.89.50:8081/bus/748
 
 ```
 
@@ -99,6 +113,47 @@ Thats about it at the moment.
 ##### Working on:
 
 At the moment i am adding luas RTPI here as well. App at the moment might run into some errors.
+At the moment available calls:
+
+```
+/luas/:stopName/:direction
+```
+
+Where `:stopName` is stops shortname. You can find them in `/files/red.json` and `/files/green.json`. 
+`:direction` is not working at the moment, but is required to do the call, you can put there whatever you want.
+
+####Example response `/luas/BAL/I`
+
+http://104.131.89.50:8081/luas/BAL/I
+
+```
+{
+  "inbound": [
+    {
+      "first": {
+        "duemins": "6",
+        "destination": "St. Stephen's Green"
+      },
+      "second": {
+        "duemins": "18",
+        "destination": "St. Stephen's Green"
+      }
+    }
+  ],
+  "outbound": [
+    {
+      "first": {
+        "duemins": "1",
+        "destination": "Brides Glen"
+      },
+      "second": {
+        "duemins": "10",
+        "destination": "Brides Glen"
+      }
+    }
+  ]
+}
+```
 
 ##### By the way:
 
