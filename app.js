@@ -208,7 +208,7 @@ app.get('/luas/:stopName/:direction', function (req, res) {
 
 			});
 			res.setHeader('Content-Type', 'application/json');
-			res.send(luas);
+			res.send(JSON.stringify(luas, null, 4));
 		}
 		/*
 		 scraping this takes a while, so i suggest to run it only once in a while
