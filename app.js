@@ -118,7 +118,7 @@ app.get('/bus/:stopNo', function (req, res) {
 		stopNr = '000' + stopNr;
 	}
 
-	var url = 'http://rtpi.ie/Text/WebDisplay.aspx?stopRef=' + stopNr;
+	var url = 'http://www.rtpi.ie/Text/WebDisplay.aspx?stopRef=' + stopNr;
 
 	request(url, function (error, response, html) {
 		if (!error) {
